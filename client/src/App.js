@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+const BASE_URL = "https://libraryborrowingsystem.onrender.com";
 function App() {
   const [books, setBooks] = useState([]);
 
   const fetchBooks = async () => {
-    const res = await axios.get("http://localhost:3001/books");
+    const res = await axios.get(`${BASE_URL}/books`);
     setBooks(res.data);
   };
 
@@ -15,7 +15,7 @@ function App() {
 
   const borrowBook = async (id) => {
     try {
-      await axios.post(`http://localhost:3001/borrow/${id}`);
+      await axios.post(`${BASE_URL}/borrow/${id}`);
       fetchBooks();
     } catch (err) {
       alert(err.response.data.message);
@@ -24,7 +24,7 @@ function App() {
 
   const returnBook = async (id) => {
   try {
-    await axios.post(`http://localhost:3001/return/${id}`);
+    await axios.post(`${BASE_URL}/return/${id}`);
     fetchBooks();
   } catch (err) {
     alert(err.response?.data?.message || "Something went wrong");
